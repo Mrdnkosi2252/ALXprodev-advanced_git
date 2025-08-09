@@ -1,7 +1,17 @@
 #!/bin/sh
-for dir in $(git diff --cached --name-only | xargs dirname | sort | uniq); do
+
+# Get list of modified files
+staged_files=$(git diff --cached --name-only)
+
+# If no files are staged, exit successfully
+[ -z "$staged_files" ] && exit 0
+
+# Check each directory for README.md
+for dir in $(echo "$staged_files" | xargs dirname | sort | uniq); do
   if [ ! -f "$dir/README.md" ]; then
     echo "Error: Directory $dir is missing a README.md file"
     exit 1
   fi
 done
+
+exit 0
