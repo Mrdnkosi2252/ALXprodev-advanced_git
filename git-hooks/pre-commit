@@ -1,0 +1,7 @@
+#!/bin/sh
+for dir in $(git diff --cached --name-only | xargs dirname | sort | uniq); do
+  if [ ! -f "$dir/README.md" ]; then
+    echo "Error: Directory $dir is missing a README.md file"
+    exit 1
+  fi
+done

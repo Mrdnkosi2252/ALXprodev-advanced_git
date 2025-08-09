@@ -1,0 +1,4 @@
+#!/bin/sh
+if [ "$(git rev-parse --abbrev-ref HEAD)" = "main" ]; then
+  echo "Merge to main completed at $(date)" >> merge-log.txt
+fi
